@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Digital Thorana – Vesak 2024</title>
+    <title>Digital Thorana 2026</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Sinhala:wght@400;700&family=Cinzel+Decorative:wght@700;900&display=swap');
 
@@ -19,6 +19,63 @@
             --glow: #ffe066;
             --lantern: #ff6600;
         }
+
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #050b14;
+            z-index: 999999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease;
+        }
+
+        .loader-content {
+            text-align: center;
+            width: 100%;
+            /* Allows the content more room to breathe */
+            max-width: 1000px;
+            /* Increases the overall max-width for bigger content */
+        }
+
+        .preloader-img {
+            width: 400px;
+            /* Increase this value to make the image larger */
+            height: auto;
+            /* Keeps the proportions correct */
+            margin-bottom: 30px;
+            /* Added more space between image and bar */
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 6px;
+            background: #1a2a40;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        #progress-bar {
+            width: 0%;
+            height: 100%;
+            background: #A1CE03;
+            transition: width 0.3s ease;
+        }
+
+        .loading-text {
+            color: #A1CE03;
+            margin-top: 15px;
+            font-family: 'Noto Serif Sinhala', serif;
+        }
+
+
 
         *,
         *::before,
@@ -878,6 +935,17 @@
 
 <body>
 
+    <!-- ── PRELOADER OVERLAY ── -->
+    <div id="preloader">
+        <div class="loader-content">
+            <img src="preloader.png" alt="Loading..." class="preloader-img">
+            <div class="progress-container">
+                <div id="progress-bar"></div>
+            </div>
+            <div class="loading-text">කපි ජාතක කතාව...</div>
+        </div>
+    </div>
+
     <div id="sky"></div>
 
     <div id="wrapper">
@@ -1177,21 +1245,53 @@
         </div>
     </div>
 
-    <div id="sound-modal-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(13, 5, 0, 0.95); z-index: 99999; display: flex; justify-content: center; align-items: center; transition: opacity 0.4s ease;">
-    <div style="background: linear-gradient(135deg, #3a1a00, #0d0500); border: 2px solid #FFD700; padding: 30px; text-align: center; border-radius: 12px; box-shadow: 0 0 30px rgba(255, 215, 0, 0.3); max-width: 400px; width: 90%;">
-        <h2 style="color: #FFD700; margin-bottom: 15px; font-family: 'Noto Serif Sinhala', serif; font-size: 22px;">Digital Thorana Sound</h2>
-        <p style="color: #fff8e7; margin-bottom: 25px; opacity: 0.9; font-size: 14px; line-height: 1.6;">Experience the full atmosphere with traditional background sounds and music.</p>
-        <button id="enable-sound-btn" style="background: #FFD700; color: #0d0500; border: none; padding: 12px 30px; font-size: 16px; font-weight: bold; border-radius: 25px; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4); transition: transform 0.2s;">
-            🎵 Enable Sound
-        </button>
+    <div id="sound-modal-overlay"
+        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(13, 5, 0, 0.95); z-index: 99999; display: flex; justify-content: center; align-items: center; transition: opacity 0.4s ease;">
+        <div
+            style="background: linear-gradient(135deg, #3a1a00, #0d0500); border: 2px solid #FFD700; padding: 30px; text-align: center; border-radius: 12px; box-shadow: 0 0 30px rgba(255, 215, 0, 0.3); max-width: 400px; width: 90%;">
+            <h2 style="color: #FFD700; margin-bottom: 15px; font-family: 'Noto Serif Sinhala', serif; font-size: 22px;">
+                Digital Thorana Sound</h2>
+            <p style="color: #fff8e7; margin-bottom: 25px; opacity: 0.9; font-size: 14px; line-height: 1.6;">Experience
+                the full atmosphere with traditional background sounds and music.</p>
+            <button id="enable-sound-btn"
+                style="background: #FFD700; color: #0d0500; border: none; padding: 12px 30px; font-size: 16px; font-weight: bold; border-radius: 25px; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4); transition: transform 0.2s;">
+                🎵 Enable Sound
+            </button>
+        </div>
     </div>
-</div>
 
     <button id="sound-btn" title="Toggle sound">🔔</button>
     <!-- Background Audio Element with Autoplay -->
     <audio id="bg-music" src="sound.mp3" loop autoplay prefetch="auto"></audio>
 
     <script>
+
+        /* ── PRELOADER LOADING BAR LOGIC ── */
+        const progressBar = document.getElementById('progress-bar');
+        const preloader = document.getElementById('preloader');
+        let width = 0;
+
+        // Simulate rapid loading progress
+        const interval = setInterval(() => {
+            if (width < 90) {
+                width += Math.random() * 10;
+                progressBar.style.width = width + '%';
+            }
+        }, 100);
+
+        // Finalize when the page finishes loading
+        window.addEventListener('load', () => {
+            clearInterval(interval);
+            progressBar.style.width = '100%';
+
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                }, 800);
+            }, 500);
+        });
+
         /* ── STARS ── */
         (function () {
             const sky = document.getElementById('sky');
@@ -1277,7 +1377,6 @@
         document.getElementById('pop-prev').addEventListener('click', () => { cur = cur > 1 ? cur - 1 : 10; openStory(cur); });
         document.getElementById('pop-next').addEventListener('click', () => { cur = cur < 10 ? cur + 1 : 1; openStory(cur); });
 
-        /* ── SOUND ── */
         /* ── SOUND ── */
         let soundOn = false;
         const sBtn = document.getElementById('sound-btn');
