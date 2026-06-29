@@ -1,3 +1,4 @@
+<!-- Code 1 -->
 <!DOCTYPE html>
 <html lang="si">
 
@@ -37,11 +38,8 @@
         .loader-content {
             text-align: center;
             width: 100%;
-            /* Allows the content more room to breathe */
             max-width: 1000px;
-            /* Increases the overall max-width for bigger content */
         }
-
 
         .progress-container {
             width: 100%;
@@ -64,8 +62,6 @@
             font-family: 'Noto Serif Sinhala', serif;
         }
 
-
-
         *,
         *::before,
         *::after {
@@ -84,7 +80,6 @@
             color: var(--white);
         }
 
-        /* ── SKY ── */
         #sky {
             position: fixed;
             inset: 0;
@@ -114,7 +109,6 @@
             }
         }
 
-        /* floating lanterns */
         .lantern-wrap {
             position: fixed;
             bottom: -60px;
@@ -173,7 +167,6 @@
             border-radius: 1px;
         }
 
-        /* ── WRAPPER ── */
         #wrapper {
             position: relative;
             z-index: 2;
@@ -184,7 +177,6 @@
             padding-bottom: 60px;
         }
 
-        /* ── HEADER ── */
         #header {
             width: 100%;
             text-align: center;
@@ -220,7 +212,6 @@
             }
         }
 
-        /* buntings */
         .bunting-row {
             width: 100%;
             display: flex;
@@ -255,7 +246,6 @@
             }
         }
 
-        /* ── MAIN LAYOUT: panels + arch ── */
         #stage {
             width: min(1100px, 98vw);
             display: grid;
@@ -267,7 +257,6 @@
             justify-items: center;
         }
 
-        /* arch takes centre 3 rows */
         #thorana {
             grid-column: 2;
             grid-row: 1 / 6;
@@ -276,8 +265,157 @@
             user-select: none;
         }
 
+        /* ══════════════════════════════════════════
+           රස්වළල්ල — radiant halo / rays of light
+           sitting behind the central thorana image
+        ══════════════════════════════════════════ */
+        #rasvalalla {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 135%;
+            height: 135%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            pointer-events: none;
+        }
 
-        /* flames */
+        /* soft multi-colour aura glow (Buddhist-flag hues) */
+        #rasvalalla::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: conic-gradient(from 0deg,
+                    #ffe06699, #ff8c0099, #ffd70099, #4dd2ff99,
+                    #ff5f5f99, #ffe06699);
+            filter: blur(38px);
+            animation: haloSpin 14s linear infinite, haloPulse 4s ease-in-out infinite;
+            opacity: .75;
+        }
+
+        @keyframes haloSpin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes haloPulse {
+
+            0%,
+            100% {
+                opacity: .55;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: .9;
+                transform: scale(1.07);
+            }
+        }
+
+        /* sharp golden rays radiating outward */
+        .ray-burst {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: haloSpin 22s linear infinite reverse;
+        }
+
+        .ray {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 3px;
+            height: 46%;
+            transform-origin: top center;
+            background: linear-gradient(to bottom,
+                    rgba(255, 235, 150, .95) 0%,
+                    rgba(255, 200, 80, .55) 35%,
+                    rgba(255, 180, 60, 0) 100%);
+            animation: rayShimmer 2.4s ease-in-out infinite;
+            border-radius: 3px;
+        }
+
+        @keyframes rayShimmer {
+
+            0%,
+            100% {
+                opacity: .35;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* bright inner glow disc right behind the image */
+        #rasvalalla-core {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 62%;
+            height: 62%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            background: radial-gradient(circle,
+                    rgba(255, 255, 230, .9) 0%,
+                    rgba(255, 215, 120, .55) 45%,
+                    rgba(255, 180, 60, 0) 75%);
+            filter: blur(6px);
+            animation: corePulse 3.2s ease-in-out infinite;
+        }
+
+        @keyframes corePulse {
+
+            0%,
+            100% {
+                opacity: .7;
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.06);
+            }
+        }
+
+        /* twinkling light specks drifting within the halo */
+        .halo-spark {
+            position: absolute;
+            border-radius: 50%;
+            background: #fff7d6;
+            box-shadow: 0 0 6px 2px #ffe066cc;
+            animation: sparkTwinkle var(--sd, 2.4s) ease-in-out infinite;
+        }
+
+        @keyframes sparkTwinkle {
+
+            0%,
+            100% {
+                opacity: 0;
+                transform: scale(.4);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* keep the actual image above the halo */
+        #thorana>img {
+            position: relative;
+            z-index: 2;
+        }
+
+        .flame-cluster,
+        .blink-row {
+            z-index: 3;
+        }
+
         .flame-cluster {
             position: absolute;
             top: -4%;
@@ -306,7 +444,6 @@
             }
         }
 
-        /* arch blinking lights */
         .blink-row {
             position: absolute;
             display: flex;
@@ -357,9 +494,6 @@
             }
         }
 
-        /* ═══════════════════════════════════════
-       STORY PANELS — big, with light borders
-    ═══════════════════════════════════════ */
         .panel-col-left {
             grid-column: 1;
             display: flex;
@@ -390,7 +524,6 @@
             border-radius: 10px;
             cursor: pointer;
             overflow: visible;
-            /* allow glow to bleed out */
             transition: transform .25s;
             display: flex;
             flex-direction: column;
@@ -404,7 +537,6 @@
             transform: scale(1.06);
         }
 
-        /* ── animated rainbow border using conic-gradient ── */
         .panel-btn::before {
             content: '';
             position: absolute;
@@ -416,7 +548,6 @@
             z-index: 0;
         }
 
-        /* inner background cover */
         .panel-btn::after {
             content: '';
             position: absolute;
@@ -432,7 +563,6 @@
             }
         }
 
-        /* extra outer glow ring */
         .panel-glow-ring {
             position: absolute;
             inset: -8px;
@@ -459,7 +589,6 @@
             }
         }
 
-        /* corner dot lights */
         .panel-corners {
             position: absolute;
             inset: -2px;
@@ -514,7 +643,6 @@
             }
         }
 
-        /* side dot strips */
         .panel-dots {
             position: absolute;
             inset: 4px;
@@ -531,7 +659,6 @@
             height: 100%;
         }
 
-        /* inner content (above pseudo-elements) */
         .panel-inner {
             position: relative;
             z-index: 5;
@@ -579,7 +706,6 @@
             opacity: .85;
         }
 
-        /* hover shimmer */
         .panel-btn:hover .panel-inner {
             background: rgba(255, 200, 50, .06);
             border-radius: 8px;
@@ -603,7 +729,6 @@
             }
         }
 
-        /* running-light strip on each panel edge */
         .run-strip {
             position: absolute;
             z-index: 8;
@@ -783,6 +908,270 @@
             transform: scale(1.05);
         }
 
+        /* ══════════════════════════════════════════
+           CINEMATIC AUTO-POPUP  (audio-synced, full image)
+        ══════════════════════════════════════════ */
+        #auto-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 300;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            background: radial-gradient(ellipse at center, rgba(0, 0, 0, .45) 0%, rgba(0, 0, 0, .82) 100%);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .6s ease;
+        }
+
+        #auto-overlay.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #auto-card {
+            position: relative;
+            max-width: min(560px, 74vw);
+            width: 100%;
+            max-height: 92vh;
+            display: flex;
+            flex-direction: column;
+            border-radius: 20px;
+            overflow: hidden;
+            background: linear-gradient(160deg, #2a0d00 0%, #1a0500 100%);
+            box-shadow: 0 0 0 3px var(--gold), 0 0 50px #ffd70066, 0 0 100px #ff880022, 0 30px 70px rgba(0, 0, 0, .85);
+            transform: translateY(30px) scale(.96);
+            opacity: 0;
+            transition: transform .6s cubic-bezier(.22, .68, 0, 1.2), opacity .6s ease;
+        }
+
+        #auto-overlay.visible #auto-card {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+
+        /* Image area — contained so the full picture is always visible, never cropped */
+        #auto-img-wrap {
+            position: relative;
+            width: 100%;
+            flex: 0 1 auto;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-height: 56vh;
+            overflow: hidden;
+        }
+
+        #auto-img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: contain;
+        }
+
+        /* Cross-fade + scale transition when switching from one chapter's
+           picture/text to the next */
+        #auto-img-wrap,
+        #auto-caption-inner {
+            transition: opacity .5s ease, transform .5s ease;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        #auto-card.frame-switching #auto-img-wrap,
+        #auto-card.frame-switching #auto-caption-inner {
+            opacity: 0;
+            transform: scale(1.04);
+        }
+
+        /* Caption sits below the image as a normal block — full text, no clipping */
+        #auto-caption {
+            padding: 18px 26px 16px;
+            background: linear-gradient(165deg, #2a0d00 0%, #1a0500 100%);
+            overflow-y: auto;
+            flex: 1 1 auto;
+        }
+
+        #auto-chapter-lbl {
+            font-size: .68rem;
+            letter-spacing: 3px;
+            color: var(--gold2);
+            text-transform: uppercase;
+            opacity: .85;
+            margin-bottom: 6px;
+        }
+
+        #auto-title-lbl {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: clamp(.95rem, 2.4vw, 1.25rem);
+            color: var(--gold);
+            text-shadow: 0 0 14px #ffd700;
+            line-height: 1.4;
+            margin-bottom: 10px;
+            padding-right: 30px;
+            /* keep clear of the close button */
+        }
+
+        #auto-text-lbl {
+            color: #ffe8bb;
+            font-size: clamp(.8rem, 1.7vw, .95rem);
+            line-height: 1.75;
+        }
+
+        /* ── CLOSE BUTTON — simple, top-right corner of the card ── */
+        #auto-close {
+            position: absolute;
+            top: 10px;
+            right: 14px;
+            z-index: 6;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, .45);
+            border: 1px solid rgba(255, 215, 0, .5);
+            color: var(--gold2);
+            font-size: 1rem;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background .2s, color .2s, border-color .2s;
+        }
+
+        #auto-close:hover {
+            background: rgba(0, 0, 0, .7);
+            color: #fff;
+            border-color: var(--gold);
+        }
+
+        /* timer + play/pause row */
+        #auto-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 14px 6px 18px;
+            background: linear-gradient(165deg, #2a0d00 0%, #1a0500 100%);
+            border-top: 1px solid #3a1a00;
+            flex-shrink: 0;
+        }
+
+        #auto-footer #auto-chapter-counter {
+            font-size: .75rem;
+            color: #ffcc88;
+            letter-spacing: 1px;
+        }
+
+        /* ── PLAY/PAUSE — simple flat button, in the footer where
+           the close (✕) button used to sit ── */
+        #auto-playpause {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, .4);
+            border: 1px solid rgba(255, 215, 0, .5);
+            color: var(--gold);
+            font-size: .95rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background .2s, border-color .2s;
+        }
+
+        #auto-playpause:hover {
+            background: rgba(0, 0, 0, .65);
+            border-color: var(--gold);
+        }
+
+        /* ── PREV / NEXT — simple flat buttons, placed on either
+           side of the popup card itself ── */
+        .auto-side-btn {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: rgba(20, 8, 0, .6);
+            border: 1.5px solid rgba(255, 215, 0, .55);
+            color: var(--gold);
+            font-size: 1.15rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background .2s, border-color .2s, transform .15s;
+        }
+
+        .auto-side-btn:hover {
+            background: rgba(20, 8, 0, .85);
+            border-color: var(--gold);
+            transform: scale(1.06);
+        }
+
+        .auto-side-btn:active {
+            transform: scale(.95);
+        }
+
+        /* countdown bar across very bottom */
+        #auto-bar-wrap {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: rgba(58, 26, 0, .6);
+        }
+
+        #auto-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gold), var(--gold2), var(--gold3));
+            transform-origin: left;
+            border-radius: 2px;
+        }
+
+        /* ── AUTO-SCROLL TOGGLE (cool teal, distinct from sound button) ── */
+        #scroll-btn {
+            position: fixed;
+            bottom: 82px;
+            right: 20px;
+            z-index: 50;
+            background: linear-gradient(135deg, #063542, #0a4f5e);
+            border: 2px solid #4dd2ff;
+            border-radius: 16px;
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.3rem;
+            color: #bdf2ff;
+            box-shadow: 0 0 12px #4dd2ff88;
+            transition: transform .2s;
+        }
+
+        #scroll-btn:hover {
+            transform: scale(1.12);
+        }
+
+        @media(max-width: 600px) {
+            #auto-overlay {
+                gap: 8px;
+            }
+
+            #auto-card {
+                max-width: min(560px, 100vw - 96px);
+            }
+
+            .auto-side-btn {
+                width: 38px;
+                height: 38px;
+                font-size: 1rem;
+            }
+        }
+
         /* ── SOUND ── */
         #sound-btn {
             position: fixed;
@@ -859,7 +1248,6 @@
             }
         }
 
-        /* ── FOOTER ── */
         footer {
             margin-top: 24px;
             padding: 14px;
@@ -874,7 +1262,6 @@
             color: var(--gold2);
         }
 
-        /* ── RESPONSIVE ── */
         @media(max-width: 700px) {
             #stage {
                 grid-template-columns: 1fr 1fr;
@@ -919,6 +1306,185 @@
                 aspect-ratio: 1 / 1;
             }
         }
+
+        /* ── PLAY NOW BUTTON (floating) ── */
+        #play-now-btn {
+            position: fixed;
+            bottom: 82px;
+            right: 20px;
+            z-index: 50;
+            background: linear-gradient(135deg, #8b0000, #cc3300, #ff6600);
+            border: 2px solid var(--gold);
+            border-radius: 28px;
+            padding: 10px 18px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            color: #fff;
+            font-family: 'Noto Serif Sinhala', serif;
+            font-size: 0.82rem;
+            font-weight: 700;
+            box-shadow: 0 0 20px #ff660066, 0 0 8px #ffd70044;
+            transition: all 0.2s;
+            animation: playBtnPulse 2.5s ease-in-out infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes playBtnPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px #ff660066, 0 0 8px #ffd70044;
+            }
+
+            50% {
+                box-shadow: 0 0 35px #ff6600aa, 0 0 15px #ffd70077;
+            }
+        }
+
+        #play-now-btn:hover {
+            transform: scale(1.08);
+            background: linear-gradient(135deg, #cc3300, #ff6600, #ffaa00);
+        }
+
+        #play-now-btn .pn-icon {
+            font-size: 1.1rem;
+        }
+
+        /* ── AUTO-SCROLL BUTTON ── */
+        #autoscroll-btn {
+            position: fixed;
+            bottom: 144px;
+            right: 20px;
+            z-index: 50;
+            background: linear-gradient(135deg, var(--mid), #5a2a00);
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.3rem;
+            box-shadow: 0 0 12px #ffd70088;
+            transition: transform .2s, background 0.3s;
+        }
+
+        #autoscroll-btn:hover {
+            transform: scale(1.12);
+        }
+
+        #autoscroll-btn.scrolling {
+            background: linear-gradient(135deg, #2a5500, #44aa00);
+            border-color: #88ff44;
+            box-shadow: 0 0 16px #88ff4466;
+            animation: scrollBtnPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes scrollBtnPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 12px #88ff4466;
+            }
+
+            50% {
+                box-shadow: 0 0 24px #88ff44aa;
+            }
+        }
+
+        /* ══════════════════════════════════════════
+           WELCOME / START GATE
+           Shown on load — gathers the one click
+           browsers require before sound can autoplay.
+        ══════════════════════════════════════════ */
+        #welcome-overlay{
+            position:fixed;inset:0;z-index:500;
+            display:flex;align-items:center;justify-content:center;
+            background:radial-gradient(ellipse at center,#1a0a00 0%,#050200 100%);
+            opacity:1;visibility:visible;
+            transition:opacity .7s ease,visibility 0s linear .7s;
+            padding:24px;
+        }
+        #welcome-overlay.hide{
+            opacity:0;visibility:hidden;pointer-events:none;
+        }
+        /* soft drifting embers behind the welcome card */
+        #welcome-overlay::before{
+            content:'';position:absolute;inset:0;
+            background:
+                radial-gradient(circle at 20% 30%, #ffae0022 0%, transparent 45%),
+                radial-gradient(circle at 80% 70%, #ff660022 0%, transparent 45%),
+                radial-gradient(circle at 50% 95%, #ffd70018 0%, transparent 50%);
+            animation:emberDrift 8s ease-in-out infinite alternate;
+        }
+        @keyframes emberDrift{
+            0%  {transform:scale(1) translateY(0);}
+            100%{transform:scale(1.08) translateY(-10px);}
+        }
+        #welcome-card{
+            position:relative;z-index:1;
+            max-width:480px;width:100%;
+            text-align:center;
+            padding:42px 32px 36px;
+            border-radius:20px;
+            background:linear-gradient(160deg,#2a0d00 0%,#170400 100%);
+            border:2px solid var(--gold);
+            box-shadow:0 0 0 1px #ffd70033,0 0 40px #ffd70055,0 0 90px #ff880022,0 25px 60px rgba(0,0,0,.8);
+            transform:translateY(0) scale(1);
+            animation:welcomeFloat 4s ease-in-out infinite;
+        }
+        @keyframes welcomeFloat{
+            0%,100%{transform:translateY(0);}
+            50%    {transform:translateY(-6px);}
+        }
+        #welcome-dharmachakra{
+            font-size:2.4rem;color:var(--gold);
+            text-shadow:0 0 18px var(--gold2),0 0 36px #ff880088;
+            margin-bottom:10px;
+            animation:welcomeSpin 6s linear infinite;
+            display:inline-block;
+        }
+        @keyframes welcomeSpin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+        #welcome-eyebrow{
+            font-size:.72rem;letter-spacing:4px;color:#ffcc88;
+            text-transform:uppercase;opacity:.85;margin-bottom:10px;
+        }
+        #welcome-title{
+            font-family:'Cinzel Decorative',serif;
+            font-size:clamp(1.3rem,5vw,1.9rem);
+            color:var(--gold);text-shadow:0 0 18px var(--gold2),0 2px 4px #000;
+            line-height:1.4;margin-bottom:14px;
+        }
+        #welcome-blessing{
+            font-size:clamp(.95rem,3vw,1.15rem);
+            color:#ffe8bb;line-height:1.7;margin-bottom:8px;
+        }
+        #welcome-sub{
+            font-size:.85rem;color:#caa06c;line-height:1.6;margin-bottom:26px;
+        }
+        #welcome-enter-btn{
+            display:inline-flex;align-items:center;gap:10px;
+            background:linear-gradient(90deg,#8b4500,#ffaa00,#8b4500);
+            border:none;color:#1a0800;font-weight:700;font-size:1rem;
+            padding:14px 32px;border-radius:30px;cursor:pointer;
+            letter-spacing:1px;
+            box-shadow:0 0 16px #ffd700aa,0 6px 18px rgba(0,0,0,.5);
+            transition:transform .2s,box-shadow .2s;
+        }
+        #welcome-enter-btn:hover{transform:scale(1.06);box-shadow:0 0 26px #ffd700cc,0 8px 22px rgba(0,0,0,.6);}
+        #welcome-enter-btn:active{transform:scale(.97);}
+        #welcome-enter-icon{font-size:1.1rem;}
+        #welcome-foot{
+            margin-top:18px;font-size:.72rem;color:#8a6a44;letter-spacing:.5px;
+        }
+
+        @media(max-width:480px){
+            #welcome-card{padding:32px 22px 28px;}
+        }
+
     </style>
 </head>
 
@@ -930,7 +1496,7 @@
             <div class="progress-container">
                 <div id="progress-bar"></div>
             </div>
-            <div class="loading-text"> ☸︎  මහා කපි ජාතක කතාව  ☸︎ </div>
+            <div class="loading-text"> ☸︎ මහා කපි ජාතක කතාව ☸︎ </div>
         </div>
     </div>
 
@@ -1055,23 +1621,11 @@
 
             <!-- CENTRE ARCH -->
             <div id="thorana" align="center">
-
+                <div id="rasvalalla">
+                    <div id="rasvalalla-core"></div>
+                    <div class="ray-burst" id="ray-burst"></div>
+                </div>
                 <img src="image copy.png" style="width:100%;border-radius:6px;object-fit:cover;">
-
-                <!-- Candles & incense -->
-                <rect x="225" y="610" width="10" height="40" fill="#fff8e7" rx="2" />
-                <ellipse cx="230" cy="608" rx="6" ry="3" fill="#ffcc55" />
-                <rect x="465" y="610" width="10" height="40" fill="#fff8e7" rx="2" />
-                <ellipse cx="470" cy="608" rx="6" ry="3" fill="#ffcc55" />
-                <line x1="240" y1="580" x2="238" y2="640" stroke="#a06030" stroke-width="2" />
-                <line x1="248" y1="578" x2="246" y2="640" stroke="#a06030" stroke-width="2" />
-                <line x1="452" y1="580" x2="454" y2="640" stroke="#a06030" stroke-width="2" />
-                <line x1="460" y1="578" x2="462" y2="640" stroke="#a06030" stroke-width="2" />
-                <!-- Text banner -->
-                <!-- <rect x="130" y="660" width="440" height="34" fill="#8b0000" rx="4" />
-                <rect x="130" y="660" width="440" height="34" fill="url(#goldGrad)" opacity=".2" rx="4" />
-                <text x="350" y="683" font-family="'Noto Serif Sinhala',serif" font-size="16" fill="#FFD700"
-                    text-anchor="middle" filter="url(#glow)">ත්‍රිවිධ රත්නය සරණ යමි</text> -->
 
                 <!-- Flames -->
                 <div class="flame-cluster">
@@ -1215,11 +1769,11 @@
 
         <footer>
             <p>සබ්බේ සත්තා සුඛිතා හොන්තු &nbsp;|&nbsp; <span>May all beings be happy</span></p>
-            <p style="margin-top:5px;">🌸 Digital Thorana – POSON 2026 ☸︎</p>
+            <p style="margin-top:5px;">☸︎ Digital Thorana | POSON 2026 ☸︎</p>
         </footer>
     </div>
 
-    <!-- Popup -->
+    <!-- Popup (existing) -->
     <div id="popup-overlay" role="dialog" aria-modal="true">
         <div id="popup-box">
             <button id="popup-close" aria-label="Close">✕</button>
@@ -1233,45 +1787,79 @@
         </div>
     </div>
 
+    <!-- ══════════════════════════════════════════════
+         CINEMATIC AUTO-POPUP  (audio-synced, full image)
+    ══════════════════════════════════════════════ -->
+    <div id="auto-overlay" role="dialog" aria-modal="true" aria-label="Story frame">
+
+        <!-- Previous — left side of the popup -->
+        <button class="auto-side-btn" id="auto-prev" title="පෙර" aria-label="Previous">◀</button>
+
+        <div id="auto-card">
+            <button id="auto-close" title="Close" aria-label="Close">✕</button>
+
+            <div id="auto-img-wrap">
+                <img id="auto-img" src="" alt="">
+            </div>
+            <div id="auto-caption">
+                <div id="auto-caption-inner">
+                    <div id="auto-chapter-lbl"></div>
+                    <div id="auto-title-lbl"></div>
+                    <p id="auto-text-lbl"></p>
+                </div>
+            </div>
+            <div id="auto-footer">
+                <span id="auto-chapter-counter">1 / 10</span>
+                <button id="auto-playpause" title="Play / Pause" aria-label="Play or pause">⏸</button>
+            </div>
+            <div id="auto-bar-wrap">
+                <div id="auto-bar"></div>
+            </div>
+        </div>
+
+        <!-- Next — right side of the popup -->
+        <button class="auto-side-btn" id="auto-next" title="ඊළඟ" aria-label="Next">▶</button>
+    </div>
+
+    <!-- Sound modal -->
     <div id="sound-modal-overlay"
-        style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(13, 5, 0, 0.95); z-index: 99999; display: flex; justify-content: center; align-items: center; transition: opacity 0.4s ease;">
+        style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(13,5,0,0.95);z-index:99999;display:flex;justify-content:center;align-items:center;transition:opacity 0.4s ease;">
         <div
-            style="background: linear-gradient(135deg, #3a1a00, #0d0500); border: 2px solid #FFD700; padding: 30px; text-align: center; border-radius: 12px; box-shadow: 0 0 30px rgba(255, 215, 0, 0.3); max-width: 400px; width: 90%;">
-            <h2 style="color: #FFD700; margin-bottom: 15px; font-family: 'Noto Serif Sinhala', serif; font-size: 22px;">
-                Digital Thorana Sound</h2>
-            <p style="color: #fff8e7; margin-bottom: 25px; opacity: 0.9; font-size: 14px; line-height: 1.6;">Experience
-                the full atmosphere with traditional background sounds and music.</p>
+            style="background:linear-gradient(135deg,#3a1a00,#0d0500);border:2px solid #FFD700;padding:30px;text-align:center;border-radius:12px;box-shadow:0 0 30px rgba(255,215,0,0.3);max-width:400px;width:90%;">
+            <div id="welcome-dharmachakra">☸︎</div>
+            <div id="welcome-eyebrow">Digital Thorana | Poson 2026</div>
+            <h1 id="welcome-title">☸︎ මහා කපි ජාතකය ☸︎</h1>
+            <p id="welcome-sub">ඡායාරූප, කථාව සහ පසුබිම් සංගීතය එක්ව ගලායන<br>මෙම වැඩසටහන ආරම්භ කරන්න.</p>
             <button id="enable-sound-btn"
-                style="background: #FFD700; color: #0d0500; border: none; padding: 12px 30px; font-size: 16px; font-weight: bold; border-radius: 25px; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4); transition: transform 0.2s;">
+                style="background:#FFD700;color:#0d0500;border:none;padding:12px 30px;font-size:16px;font-weight:bold;border-radius:25px;cursor:pointer;box-shadow:0 4px 15px rgba(255,215,0,0.4);transition:transform 0.2s;">
                 🎵 Enable Sound
             </button>
         </div>
     </div>
 
+
+    <!-- Floating buttons -->
+    <button id="autoscroll-btn" title="Auto-scroll thorana">↕</button>
+    <button id="play-now-btn" title="Play story in cinematic mode">
+        <span class="pn-icon">▶</span> Play Story
+    </button>
     <button id="sound-btn" title="Toggle sound">🔔</button>
-    <!-- Background Audio Element with Autoplay -->
+
+    <!-- Background Audio -->
     <audio id="bg-music" src="sound.mp3" loop autoplay prefetch="auto"></audio>
 
     <script>
-
-        /* ── PRELOADER LOADING BAR LOGIC ── */
+        /* ── PRELOADER ── */
         const progressBar = document.getElementById('progress-bar');
         const preloader = document.getElementById('preloader');
         let width = 0;
-
-        // Simulate rapid loading progress
         const interval = setInterval(() => {
-            if (width < 90) {
-                width += Math.random() * 10;
-                progressBar.style.width = width + '%';
-            }
+            if (width < 90) { width += Math.random() * 10; progressBar.style.width = width + '%'; }
         }, 100);
 
-        // Finalize when the page finishes loading
         window.addEventListener('load', () => {
             clearInterval(interval);
             progressBar.style.width = '100%';
-
             setTimeout(() => {
                 preloader.style.opacity = '0';
                 setTimeout(() => {
@@ -1318,24 +1906,233 @@
         }
         makeBulbs('blink-top', 40); makeBulbs('blink-left', 20); makeBulbs('blink-right', 20);
 
-        /* ── RUNNING LIGHT STRIPS on panels ── */
-        // Removed completely without errors.
+        /* ── රස්වළල්ල — generate radiating rays + twinkling sparks ── */
+        (function () {
+            const burst = document.getElementById('ray-burst');
+            const RAY_COUNT = 24;
+            for (let i = 0; i < RAY_COUNT; i++) {
+                const r = document.createElement('div'); r.className = 'ray';
+                const angle = (360 / RAY_COUNT) * i;
+                r.style.transform = `translate(-50%,0) rotate(${angle}deg)`;
+                r.style.animationDelay = (Math.random() * 2.4).toFixed(2) + 's';
+                r.style.height = (40 + Math.random() * 10) + '%';
+                burst.appendChild(r);
+            }
+
+            const halo = document.getElementById('rasvalalla');
+            const SPARK_COUNT = 16;
+            for (let i = 0; i < SPARK_COUNT; i++) {
+                const s = document.createElement('div'); s.className = 'halo-spark';
+                const angle = Math.random() * Math.PI * 2;
+                const dist = 30 + Math.random() * 30; // % from centre
+                const x = 50 + Math.cos(angle) * dist;
+                const y = 50 + Math.sin(angle) * dist;
+                const sz = 2 + Math.random() * 3;
+                s.style.cssText = `left:${x}%;top:${y}%;width:${sz}px;height:${sz}px;--sd:${(1.6 + Math.random() * 2.2).toFixed(2)}s;`;
+                s.style.animationDelay = (Math.random() * 3).toFixed(2) + 's';
+                halo.appendChild(s);
+            }
+        })();
 
         /* ── STORIES ── */
         const stories = {
-            1: { title: 'බෝසත් වඳුරු රජු සහ වාසස්ථානය', art: 'pic1.png', text: 'ඈත හිමාල පර්වත පාමුල, සිසිල් දිය දහර ගලා බසිනා ගංගා ඉවුරක, අහස සිඹින මහා අඹ වෘක්ෂයක් තිබුණි. එහි හටගත් අඹ ගෙඩි දිව්‍යමය රසයෙන් යුක්ත වූ අතර, රන්වන් පැහැයෙන් බැබළුණි. මේ මනරම් අඹ වනය පාලනය කළේ මහා ප්‍රඥාවන්ත, දයානුකම්පිත බෝසත් වඳුරු රජුය. සිය දහස් ගණනක් වූ වඳුරු පිරිස සරුසාර අඹ වෘක්ෂයේ අතු පතර පනිමින්, මිහිරි අඹ ගෙඩි භුක්ති විඳිමින් ඉතා සතුටින් හා සාමකාමීව ජීවත් වූහ. පරිසරය නිරන්තරයෙන්ම වඳුරන්ගේ සුරතල් හඬින් සහ පක්ෂීන්ගේ ගී නාදයෙන් ජීවමාන විය.' },
-            2: { title: 'ගඟට වැටුණු අඹ ගෙඩිය', art: 'pic2.png', text: 'වඳුරු රජු තම පිරිසට නිතරම අවවාද කළේ ගඟ දෙසට බරවී ඇති අතුවල පවතින අඹ ගෙඩි, ඒවා ඉදුණු සැණින් නෙළා ගන්නා ලෙසයි. ඒ, කිසියම් හෝ අඹ ගෙඩියක් ගඟට වැටී දිය දිගේ පහළට ගියහොත් එයින් මිනිසුන්ගෙන් අනතුරක් විය හැකි බැවිනි. නමුත් එක් දිනක, කොළ අත්තකට වැසී තිබූ විශාල, සුවඳැති, රන්වන් අඹ ගෙඩියක් කාටත් නොදැනී නටුවෙන් ගිලිහී ගඟට වැටුණි. එය දිය රැලි මත පාවෙමින් ගොස්, බොහෝ දුර බැහැර පිහිටි බරණැස් නුවර රජතුමාගේ මනරම් රාජකීය ඔරුව අසල නතර විය.' },
-            3: { title: 'බරණැස් රජුට අඹ ගෙඩිය හමුවීම', art: 'pic3.png', text: 'රාජකීය සේවකයින් විසින් ගඟේ පාවෙමින් තිබූ මේ අසාමාන්‍ය අඹ ගෙඩිය ගෙන රජතුමාට පිළිගන්වන ලදී. එහි සුවඳින්ම මත්වූ බරණැස් රජු, එය කපා රස බැලීය. පෙර කිසිදා නොවිඳි ඒ අතිමහත් මධුර රසයෙන් මවිත වූ රජුට, මේ දිව්‍යමය පලතුර හටගන්නා වෘක්ෂය දැකීමේ දැඩි ආශාවක් ඇති විය. වහාම ක්‍රියාත්මක වූ රජතුමා, තම සේනාව සහ සොල්දාදුවන් පිරිවරාගෙන, අඹ ගෙඩිය පාවී ආ මඟ ඔස්සේ ගඟ දිගේ ඉහළට ගවේෂණාත්මක සංචාරයක් ආරම්භ කළේය.' },
-            4: { title: 'වඳුරු රැළ කොටු වීම', art: 'pic4.png', text: 'දින කිහිපයක වෙහෙසකර ගමනකින් පසු, රජු ඇතුළු සේනාව අතිවිශාල අඹ ගස සොයා ගත්හ. එහි අතු පතර දහස් ගණනක් වඳුරන් සිටිනු දුටු රජු, අඹ ගස වටලන ලෙස තම සොල්දාදුවන්ට අණ කළේය. "එක් වඳුරෙකුටවත් බේරී යාමට ඉඩ නොදෙන්න, උන් සියල්ලෝම විනාශ කර අඹ ගස අප සතු කරගනිමු," රජු ගිගුරුවේය. ආයුධ සන්නද්ධ සොල්දාදුවන් අඹ ගස වටලද්දී, බියට පත් වඳුරු පිරිස කෑගසමින්, ඒ මේ අත දිව යමින් අසරණ වූහ. මරණය අභියස ඔවුන්ට පැන යාමට කිසිදු මඟක් නොතිබුණි.' },
-            5: { title: 'බෝසත් වඳුරු රජුගේ තීරණය', art: 'pic5.png', text: 'තම පිරිසගේ මරණ බිය සහ අඳෝනාව ඇසුණු වඳුරු රජු මහත් සේ කම්පාවට පත් විය. නායකයෙකු ලෙස තම පිරිස බේරාගැනීමේ පරම වගකීම ඔහු සතු විය. ගඟෙන් එගොඩ ඇති අනෙක් ඉවුරේ ආරක්ෂිත වනයක් තිබුණද, සාමාන්‍ය වඳුරෙකුට එතරම් විශාල දුරක් පැනීමට නොහැකි විය. තම ජීවිතය ගැන නොසිතූ බෝසත් වඳුරු රජු, තම මහා බලය යොදා එකවරම ගඟෙන් එගොඩට පැනීමට තීරණය කළේ, කෙසේ හෝ තම පිරිසට ගැලවීමේ මඟක් තැනීමේ අදිටනින් යුතුවය.' },
-            6: { title: 'වැල් පාලම නිර්මාණය', art: 'pic6.png', text: 'ගඟෙන් එගොඩට පැන ගත් වඳුරු රජු, එදෙස තිබූ ශක්තිමත් වැලක් සොයාගෙන එහි කෙළවරක් තම ඉණෙහි බඳින ලදී. ඉන්පසු ඔහු නැවතත් අඹ ගස දෙසට ළඟාවීමට උපරිම වෙර යොදා පිනුවේය. නමුත් වැලේ දිග මඳක් මදි වූ බැවින්, ඔහුට අඹ ගස වෙත ළඟා විය හැකි වූයේ අත්තක් තදින් දෑතින් අල්ලා ගැනීමෙන් පමණි. දැන්, වඳුරු රජුගේ ශරීරය ගඟ හරහා ඇදුණු ජීවමාන පාලමක් බවට පත්ව ඇත. එක පැත්තකින් වැලද, අනෙක් පැත්තෙන් අඹ අත්තද අල්ලාගෙන, ඔහු තම ශරීරය දැඩි වේදනාවකින් යුතුව දැඩි කරගත්තේය.' },
+            1: { title: 'බෝසත් වඳුරු රජු සහ වාසස්ථානය', art: 'pic1.png', text: 'හිමාල පර්වත පාමුල, සිසිල් දිය ගලා බසිනා ගංගා ඉවුරක, මහා අඹ වෘක්ෂයක් තිබුණි. එහි හටගත් අඹ ගෙඩි දිව්‍යමය රසයෙන් යුක්ත අතර, රන්වන් පැහැයෙන් බැබළුණි. මේ මනරම් අඹ වනය පාලනය කළේ මහා ප්‍රඥාවන්ත බෝසත් වඳුරු රජුය. අසූ දහසක් වූ වඳුරු පිරිස සරුසාර අඹ අතු පනිමින්, මිහිරි අඹ ගෙඩි භුක්ති විඳිමින් ඉතා සතුටින් හා සාමකාමීව ජීවත් වූහ. පරිසරය නිරන්තරයෙන්ම වඳුරන්ගේ සුරතල් හඬින් සහ පක්ෂීන්ගේ ගී නාදයෙන් ජීවමාන විය.' },
+            2: { title: 'ගඟට වැටුණු අඹ ගෙඩිය', art: 'pic2.png', text: 'වඳුරු රජු තම පිරිසට නිතරම අවවාද කළේ ගඟ දෙසට බරවී ඇති අතුවල පවතින අඹ ගෙඩි, ඒවා ඉදුණු සැණින් නෙළා ගන්නා ලෙසයි. ඒ, යම් අඹ ගෙඩියක් ගඟට වැටී දිය දිගේ පහළට ගියහොත් එයින් මිනිසුන්ගෙන් අනතුරක් විය හැකි විය. නමුත් එක් දිනක, කොළ අත්තකට වැසී තිබූ විශාල, රන්වන් අඹ ගෙඩියක් කාටත් නොදැනී ගඟට වැටුණි. එය දිය රැලි මත පාවී ගොස්, බොහෝ දුර බැහැර පිහිටි බරණැස් නුවර රජතුමාගේ මනරම් රාජකීය ඔරුව අසල නතර විය.' },
+            3: { title: 'බරණැස් රජුට අඹ ගෙඩිය හමුවීම', art: 'pic3.png', text: 'රාජකීය සේවකයින් විසින් ගඟේ පාවෙමින් තිබූ මේ අසාමාන්‍ය අඹ ගෙඩිය ගෙන රජතුමාට පිළිගන්වන ලදී. එහි සුවඳින්ම මත්වූ බරණැස් රජු, එය කපා රස බැලීය. පෙර නොවිඳි ඒ අතිමහත් රසයෙන් මවිත වූ රජුට, මේ දිව්‍යමය පලතුර හටගන්නා වෘක්ෂය දැකීමේ දැඩි ආශාවක් ඇති විය. වහාම ක්‍රියාත්මක වූ රජතුමා, තම සේනාව සහ සොල්දාදුවන් පිරිවරාගෙන, අඹ ගෙඩිය පාවී ආ මඟ ඔස්සේ ගඟ දිගේ ඉහළට ගවේෂණාත්මක සංචාරයක් ආරම්භ කළේය.' },
+            4: { title: 'වඳුරු රැළ කොටු වීම', art: 'pic4.png', text: 'දින කිහිපයක වෙහෙසකර ගමනකින් පසු, රජු ඇතුළු සේනාව අඹ ගස සොයා ගත්හ. එහි අතු පතර දහස් ගණනක් වඳුරන් සිටිනු දුටු රජු, අඹ ගස වටලන ලෙස තම සොල්දාදුවන්ට අණ කළේය. "එක් වඳුරෙකුටවත් බේරී යාමට ඉඩ නොදෙන්න, උන් සියල්ලෝම විනාශ කර අඹ ගස අප සතු කරගනිමු," රජු ගිගුරුවේය. සොල්දාදුවන් අඹ ගස වටලද්දී, බියට පත් වඳුරු පිරිස කෑගසමින්, ඒ මේ අත දිව යමින් අසරණ වූහ. මරණය අභියස ඔවුන්ට පැන යාමට මඟක් නොතිබුණි.' },
+            5: { title: 'බෝසත් වඳුරු රජුගේ තීරණය', art: 'pic5.png', text: 'තම පිරිසගේ මරණ බිය සහ අඳෝනාව ඇසුණු වඳුරු රජු මහත් සේ කම්පාවට පත් විය. නායකයෙකු ලෙස තම පිරිස බේරාගැනීමේ පරම වගකීම ඔහු සතු විය. ගඟෙන් එගොඩ ඇති අනෙක් ඉවුරේ ආරක්ෂිත වනයක් තිබුණද, සාමාන්‍ය වඳුරෙකුට එතරම් විශාල දුරක් පැනීමට නොහැකි විය. තම ජීවිතය ගැන නොසිතූ බෝසත් වඳුරු රජු, තම මහා බලය යොදා ගඟෙන් එගොඩට පැනීමට තීරණය කළේ, කෙසේ හෝ තම පිරිසට ගැලවීමේ මඟක් තැනීමේ අදිටනින් යුතුවය.' },
+            6: { title: 'වැල් පාලම නිර්මාණය', art: 'pic6.png', text: 'එගොඩට පැන ගත් වඳුරු රජු, ශක්තිමත් වැලක් ගෙන කෙළවරක් තම ඉණෙහි බඳින ලදී. ඉන්පසු නැවතත් අඹ ගස දෙසට ළඟාවීමට වෙර යොදා පිනුවේය. නමුත් වැලේ දිග මදි වූ බැවින්, ඔහුට අඹ ගස වෙත ළඟා විය හැකි වූයේ අත්තක් තදින් දෑතින් අල්ලා ගැනීමෙන් පමණි. දැන්, වඳුරු රජුගේ ශරීරය ගඟ හරහා ඇදුණු පාලමක් විය. එක පැත්තකින් වැලද, අනෙක් පැත්තෙන් අඹ අත්තද අල්ලාගෙන, ඔහු තම ශරීරය දැඩි වේදනාවකින් යුතුව දැඩි කරගත්තේය.' },
             7: { title: 'වඳුරන්ගේ ගැලවීම', art: 'pic7.png', text: '"මාගේ ප්‍රියාවෙනි, ප්‍රමාද නොවී මාගේ පිට මතින් පැන අනෙක් ඉවුරට ආරක්ෂිතව යන්න!" වඳුරු රජු වේදනාවෙන් කෑගැසුවේය. රජුගේ අණින්, සිය ගණනක් වඳුරන් එකිනෙකා පිටුපස වඳුරු රජුගේ පිට මතින් පාගමින්, වේගයෙන් අනෙක් ඉවුරට පැන දිව ගියහ. සිය ගණනකගේ බර සහ නියපහරවල් නිසා වඳුරු රජුගේ ශරීරය තුවාල වී, ලේ ගලන්නට විය. නමුත් ඔහුගේ මුහුණේ තිබුණේ තම පිරිස බේරෙනු දැකීමෙන් ඇති වූ ඉවසීම සහ අසිරිමත් කරුණාව පමණි.' },
-            8: { title: 'පාවාදීම (දේවදත්ත වඳුරා)', art: 'pic8.png', text: 'සියලුම වඳුරන් පාහේ බේරී ගිය පසු, අවසානයට ඉතිරි වූයේ වඳුරු රජු කෙරෙහි පෙර භවයන්හි සිටම වෛර බැඳ සිටි (පසුකාලීනව දේවදත්ත වූ) නපුරු වඳුරෙකි. වඳුරු රජු විනාශ කිරීමට මෙය කදිම අවස්ථාවක් කරගත් ඔහු, හිතාමතාම ඉතා ඉහළට පැන, මුළු ශක්තියම යොදා වඳුරු රජුගේ කොන්ද මතටම පතිත විය. ඒ දරුණු පහරින් වඳුරු රජුගේ කොන්ද බිඳී ගිය අතර, අහස පුරා අකුණු සැර වැදෙන්නාක් බඳු දරුණු ශබ්දයක් සහ දර්ශනයක් මඟින් එම ද්‍රෝහි ක්‍රියාවේ බිහිසුණු බව පෙන්විය හැක.' },
+            8: { title: 'පාවාදීම (දේවදත්ත වඳුරා)', art: 'pic8.png', text: 'සියලුම වඳුරන් පාහේ බේරී ගිය පසු, අවසානයට ඉතිරි වූයේ වඳුරු රජු කෙරෙහි පෙර භවයන්හි සිටම වෛර බැඳ සිටි නපුරු වඳුරෙකි. වඳුරු රජු විනාශ කිරීමට මෙය කදිම අවස්ථාවක් කරගත් ඔහු, හිතාමතාම ඉතා ඉහළට පැන, මුළු ශක්තියම යොදා වඳුරු රජුගේ කොන්ද මතටම පතිත විය. ඒ දරුණු පහරින් වඳුරු රජුගේ කොන්ද බිඳී ගිය අතර, අහස පුරා අකුණු සැර වැදෙන්නාක් බඳු දරුණු ශබ්දයක් සහ දර්ශනයක් මඟින් එම ද්‍රෝහි ක්‍රියාවේ බිහිසුණු බව පෙන්විය හැක.' },
             9: { title: 'බරණැස් රජුගේ පුදුමය', art: 'pic9.png', text: 'මිහිපිට සිදු වූ මේ උදාර, අසිරිමත් සහ සංවේදී මිනිස් වීරත්වයටත් එහා ගිය පරිත්‍යාගය දෙස බරණැස් රජු බලා සිටියේ දැඩි විශ්මයකින් සහ කඳුළු පිරුණු දෑසිනි. තිරිසන් සතෙකු වුවද තම පිරිස උදෙසා ජීවිතය පූජා කළ ආකාරය දුටු රජුගේ හදවත උණුවිය. වහාම තම සේනාවට අණ දුන් රජු, දුන්න සහ ඊතල බිම දමා, ඉතා ප්‍රවේශමෙන් තුවාල ලැබූ වඳුරු රජුව ගඟෙන් බිමට බා, සේද ඇතිරිල්ලක් මත හොවා සත්කාර කිරීමට කටයුතු කළේය.' },
-            10: { title: 'ධර්ම දේශනාව සහ අවසානය', art: 'pic10.png', text: 'මරණාසන්න මොහොතේ පසුවූ වඳුරු රජු දෑස් හැර බරණැස් රජු දෙස බැලීය. රජතුමා බෝසතුන්ගෙන් විමසුවේ, "තම ජීවිතය පරදුවට තබා මෙවැනි පරිත්‍යාගයක් කළේ මන්ද?" කියාය. එවිට බෝසත් වඳුරු රජු, සැබෑ නායකයෙකු යනු තම පිරිස පාලනය කරන්නෙකු නොව, ඔවුන් වෙනුවෙන් තම ජීවිතය වුවද දීමට සැදී පැහැදී සිටින සේවකයෙකු බව පවසමින් රජතුමාට දැහැමි පාලනයක් පිළිබඳ උතුම් ධර්මෝපදේශයක් ලබා දුන්නේය. එම අවවාදය අවසානයේ වඳුරු රජු දෑස් පියාගත් අතර, බරණැස් රජු වඩාත් යහපත් පාලකයෙකු වීමට අධිෂ්ඨාන කර ගත්තේය.' },
+            10: { title: 'ධර්ම දේශනාව සහ අවසානය', art: 'pic10.png', text: 'මරණාසන්න මොහොතේ පසුවූ වඳුරු රජු දෑස් හැර බරණැස් රජු දෙස බැලීය. රජතුමා බෝසතුන්ගෙන් විමසුවේ, "තම ජීවිතය පරදුවට තබා මෙවැනි පරිත්‍යාගයක් කළේ මන්ද?" කියාය. සැබෑ නායකයෙකු යනු පිරිස පාලනය කරන්නෙකු නොව ඔවුන් වෙනුවෙන් ජීවිතය වුවද දීමට සැදී පැහැදී සිටින සේවකයෙකු බව පවසමින් රජතුමාට දැහැමි පාලනයක් පිළිබඳ අවවාද ලබා දුන්නේය. අවසානයේ වඳුරු රජු දෑස් පියාගත් අතර, බරණැස් රජු වඩාත් යහපත් පාලකයෙකු විය.' },
         };
 
-        /* ── POPUP ── */
+        /* ── AUDIO TIMESTAMPS ── */
+        const STORY_TIMESTAMPS = [
+            { story: 1, start: 33, end: 95 },
+            { story: 2, start: 95, end: 142 },
+            { story: 3, start: 142, end: 199 },
+            { story: 4, start: 199, end: 278 },
+            { story: 5, start: 278, end: 295 },
+            { story: 6, start: 295, end: 343 },
+            { story: 7, start: 343, end: 387 },
+            { story: 8, start: 387, end: 402 },
+            { story: 9, start: 402, end: 450 },
+            { story: 10, start: 450, end: 522 },
+        ];
+
+        /* ── CINEMATIC AUTO-POPUP ENGINE ── */
+        const SEGMENTS = STORY_TIMESTAMPS.map(ts => ({ start: ts.start, end: ts.end, story: ts.story }));
+
+        const autoOverlay = document.getElementById('auto-overlay');
+        const autoImg = document.getElementById('auto-img');
+        const autoChapter = document.getElementById('auto-chapter-lbl');
+        const autoTitleLbl = document.getElementById('auto-title-lbl');
+        const autoTextLbl = document.getElementById('auto-text-lbl');
+        const autoBar = document.getElementById('auto-bar');
+        const autoClose = document.getElementById('auto-close');
+        const autoCard = document.getElementById('auto-card');
+
+        let activeIdx = -1;
+        let pendingIdx = -1;
+        const dismissedSegs = new Set();
+        let barRAF = null;
+        let switchTimer = null;
+
+        function applyFrameContent(i) {
+            const seg = SEGMENTS[i];
+            const s = stories[seg.story];
+            if (!s) return;
+
+            autoImg.src = s.art;
+            autoImg.alt = s.title;
+            autoChapter.textContent = `Chapter ${seg.story} of 10`;
+            autoTitleLbl.textContent = s.title;
+            autoTextLbl.textContent = s.text;
+        }
+
+        function restartBar(i) {
+            const seg = SEGMENTS[i];
+            const dur = seg.end - seg.start;
+            const elap = Math.max(0, bgMusic.currentTime - seg.start);
+            const rem = Math.max(0, dur - elap);
+            const pct = elap / dur;
+
+            cancelAnimationFrame(barRAF);
+            autoBar.style.transition = 'none';
+            autoBar.style.transform = `scaleX(${1 - pct})`;
+            barRAF = requestAnimationFrame(() => {
+                autoBar.style.transition = `transform ${rem}s linear`;
+                autoBar.style.transform = 'scaleX(0)';
+            });
+        }
+
+        function showFrame(i) {
+            if (i < 0 || i >= SEGMENTS.length) return;
+            const alreadyVisible = autoOverlay.classList.contains('visible');
+            if ((i === activeIdx && alreadyVisible) || i === pendingIdx) return;
+
+            const wasVisible = autoOverlay.classList.contains('visible');
+            const isChapterChange = wasVisible && activeIdx !== -1 && activeIdx !== i;
+
+            autoOverlay.classList.add('visible');
+
+            clearTimeout(switchTimer);
+            if (isChapterChange) {
+                pendingIdx = i;
+                autoCard.classList.add('frame-switching');
+                switchTimer = setTimeout(() => {
+                    applyFrameContent(i);
+                    restartBar(i);
+                    autoCard.classList.remove('frame-switching');
+                    activeIdx = i;
+                    pendingIdx = -1;
+                    updateAutoCounter();
+                }, 380);
+            } else {
+                applyFrameContent(i);
+                restartBar(i);
+                activeIdx = i;
+                pendingIdx = -1;
+                updateAutoCounter();
+            }
+        }
+
+        function hideFrame(keepIdx) {
+            autoOverlay.classList.remove('visible');
+            autoCard.classList.remove('frame-switching');
+            clearTimeout(switchTimer);
+            cancelAnimationFrame(barRAF);
+            if (!keepIdx) activeIdx = -1;
+            pendingIdx = -1;
+        }
+
+        function updateAutoCounter() {
+            const counter = document.getElementById('auto-chapter-counter');
+            if (counter && activeIdx >= 0) counter.textContent = `${SEGMENTS[activeIdx].story} / 10`;
+        }
+
+        function segAt(t) {
+            for (let i = 0; i < SEGMENTS.length; i++) {
+                if (t >= SEGMENTS[i].start && t < SEGMENTS[i].end) return i;
+            }
+            return -1;
+        }
+
+        document.getElementById('bg-music').addEventListener('timeupdate', function () {
+            const t = this.currentTime;
+            const idx = segAt(t);
+
+            if (ov.classList.contains('show')) return;
+
+            if (idx !== -1 && dismissedSegs.has(idx)) {
+                if (activeIdx !== -1) hideFrame(false);
+                return;
+            }
+            if (idx === activeIdx && autoOverlay.classList.contains('visible')) return;
+
+            if (idx === -1) hideFrame(false);
+            else showFrame(idx);
+        });
+
+        document.getElementById('bg-music').addEventListener('ended', function () {
+            hideFrame(false);
+            dismissedSegs.clear();
+        });
+
+        autoClose.addEventListener('click', function () {
+            if (activeIdx >= 0) dismissedSegs.add(activeIdx);
+            hideFrame(false);
+        });
+
+        autoOverlay.addEventListener('click', function (e) {
+            if (e.target === autoOverlay) autoClose.click();
+        });
+
+        /* ── AUTO-POPUP NAVIGATION & CONTROLS ── */
+        document.getElementById('auto-prev').addEventListener('click', function () {
+            const prevIdx = activeIdx > 0 ? activeIdx - 1 : SEGMENTS.length - 1;
+            const seg = SEGMENTS[prevIdx];
+            bgMusic.currentTime = seg.start;
+            dismissedSegs.delete(prevIdx);
+            activeIdx = -1;
+            showFrame(prevIdx);
+        });
+
+        document.getElementById('auto-next').addEventListener('click', function () {
+            const nextIdx = activeIdx < SEGMENTS.length - 1 ? activeIdx + 1 : 0;
+            const seg = SEGMENTS[nextIdx];
+            bgMusic.currentTime = seg.start;
+            dismissedSegs.delete(nextIdx);
+            activeIdx = -1;
+            showFrame(nextIdx);
+        });
+
+        setTimeout(function initAutoPlayPauseSync() {
+            const ppBtn = document.getElementById('auto-playpause');
+            if (!ppBtn) return;
+
+            function syncPPBtn() {
+                ppBtn.textContent = soundOn ? '⏸' : '▶';
+                ppBtn.title = soundOn ? 'Pause' : 'Play';
+            }
+
+            ppBtn.addEventListener('click', function () {
+                if (soundOn) { stopAudio(); } else { startAudio(); }
+                syncPPBtn();
+            });
+
+            sBtn.addEventListener('click', () => { setTimeout(syncPPBtn, 50); });
+            bgMusic.addEventListener('play', syncPPBtn);
+            bgMusic.addEventListener('pause', syncPPBtn);
+
+            syncPPBtn();
+        }, 0);
+
+        SEGMENTS.forEach(seg => { const img = new Image(); img.src = stories[seg.story].art; });
+
+        /* ── MANUAL POPUP ── */
         let cur = 1;
         const ov = document.getElementById('popup-overlay');
         const pT = document.getElementById('popup-title');
@@ -1345,17 +2142,28 @@
         function openStory(n) {
             cur = n; const s = stories[n]; if (!s) return;
             pT.textContent = s.title;
-
-            if (s.art.endsWith('.png') || s.art.endsWith('.jpg') || s.art.endsWith('.jpeg') || s.art.endsWith('.gif')) {
-                pA.innerHTML = `<img src="${s.art}" style="max-width: 100%; max-height: 250px; object-fit: contain; border-radius: 8px; box-shadow: 0 0 15px rgba(0,0,0,0.5);">`;
+            if (s.art.match(/\.(png|jpg|jpeg|gif)$/i)) {
+                pA.innerHTML = `<img src="${s.art}" style="max-width:100%;max-height:250px;object-fit:contain;border-radius:8px;box-shadow:0 0 15px rgba(0,0,0,0.5);">`;
             } else {
                 pA.textContent = s.art;
             }
-
             pTx.textContent = s.text;
             ov.classList.add('show');
+            if (typeof hideFrame === 'function' && autoOverlay && autoOverlay.classList.contains('visible')) {
+                hideFrame(true);
+            }
         }
-        function closeStory() { ov.classList.remove('show'); }
+
+        function closeStory() {
+            ov.classList.remove('show');
+            if (typeof segAt === 'function' && soundOn && bgMusic) {
+                const t = bgMusic.currentTime;
+                const idx = segAt(t);
+                if (idx !== -1 && !dismissedSegs.has(idx)) {
+                    showFrame(idx);
+                }
+            }
+        }
 
         document.querySelectorAll('.panel-btn').forEach(b => {
             b.addEventListener('click', () => openStory(+b.dataset.story));
@@ -1365,59 +2173,196 @@
         document.getElementById('pop-prev').addEventListener('click', () => { cur = cur > 1 ? cur - 1 : 10; openStory(cur); });
         document.getElementById('pop-next').addEventListener('click', () => { cur = cur < 10 ? cur + 1 : 1; openStory(cur); });
 
-        /* ── SOUND ── */
+        /* ── AUDIO SOUNDTRACK CONTROLS ── */
         let soundOn = false;
         const sBtn = document.getElementById('sound-btn');
         const bgMusic = document.getElementById('bg-music');
         const soundModal = document.getElementById('sound-modal-overlay');
         const enableSoundBtn = document.getElementById('enable-sound-btn');
 
-        // Central function to start background audio cleanly
         function startAudio() {
             soundOn = true;
-            sBtn.textContent = '🔕'; // Changes icon to mute state
+            sBtn.textContent = '🔕';
             if (bgMusic) {
-                bgMusic.volume = 0.4; // Sets a pleasant background volume level
-                bgMusic.play().catch(err => console.log("Audio play restriction encountered:", err));
+                bgMusic.volume = 0.4;
+                bgMusic.play().catch(err => console.log("Audio play restriction:", err));
             }
-            // Hide the popup overlay gracefully if it exists
             if (soundModal) {
                 soundModal.style.opacity = '0';
                 setTimeout(() => soundModal.style.display = 'none', 400);
             }
+
+            // ── TRIGGER AUTO-SCROLL HERE WHEN SOUND IS ENABLED ──
+            if (!autoScrollActive) {
+                toggleAutoScroll();
+            }
         }
 
-        // Central function to pause background audio cleanly
         function stopAudio() {
             soundOn = false;
-            sBtn.textContent = '🔔'; // Changes icon to play state
-            if (bgMusic) {
-                bgMusic.pause();
-            }
+            sBtn.textContent = '🔔';
+            if (bgMusic) bgMusic.pause();
         }
 
-        // 1. POPUP ACTION: Triggers when user lands/refreshes and clicks "Enable Sound"
-        if (enableSoundBtn) {
-            enableSoundBtn.addEventListener('click', () => {
-                startAudio();
-            });
-        }
+        if (enableSoundBtn) enableSoundBtn.addEventListener('click', startAudio);
+        sBtn.addEventListener('click', () => { soundOn ? stopAudio() : startAudio(); });
 
-        // 2. BELL ICON TOGGLE: Handles manual user pausing and unpausing later on
-        sBtn.addEventListener('click', () => {
-            if (soundOn) {
-                stopAudio();
-            } else {
-                startAudio();
-            }
-        });
-
-        /* ── KEYBOARD ── */
+        /* ── KEYBOARD CONTROLS ── */
         document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') closeStory();
+            if (e.key === 'Escape') {
+                closeStory();
+                if (autoOverlay.classList.contains('visible')) autoClose.click();
+            }
             if (e.key === 'ArrowLeft' && ov.classList.contains('show')) { cur = cur > 1 ? cur - 1 : 10; openStory(cur); }
             if (e.key === 'ArrowRight' && ov.classList.contains('show')) { cur = cur < 10 ? cur + 1 : 1; openStory(cur); }
         });
+
+        document.getElementById('play-now-btn').addEventListener('click', () => {
+            if (!soundOn) startAudio();
+            const t = bgMusic.currentTime;
+            const idx = segAt(t) !== -1 ? segAt(t) : 0;
+            if (segAt(t) === -1 && SEGMENTS[0]) {
+                bgMusic.currentTime = SEGMENTS[0].start;
+            }
+            dismissedSegs.delete(idx);
+            activeIdx = -1;
+            showFrame(idx);
+        });
+
+        /* ── AUTO-SCROLL ENGINE ── */
+        const autoScrollBtn = document.getElementById('autoscroll-btn');
+        let autoScrollActive = false;
+        let autoScrollRAF = null;
+        let autoScrollDir = 1;   // 1 = down, -1 = up
+        const AUTO_SCROLL_SPEED = 0.6; // px per frame (~36px/s at 60fps)
+
+        function autoScrollStep() {
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+
+            if (autoScrollDir === 1) {
+                window.scrollBy(0, AUTO_SCROLL_SPEED);
+                if (window.scrollY >= maxScroll - 2) {
+                    autoScrollDir = -1; // reverse direction
+                }
+            } else {
+                window.scrollBy(0, -AUTO_SCROLL_SPEED);
+                if (window.scrollY <= 2) {
+                    autoScrollDir = 1; // reverse direction
+                }
+            }
+
+            if (autoScrollActive) {
+                autoScrollRAF = requestAnimationFrame(autoScrollStep);
+            }
+        }
+
+        function toggleAutoScroll() {
+            autoScrollActive = !autoScrollActive;
+            autoScrollBtn.classList.toggle('scrolling', autoScrollActive);
+            autoScrollBtn.title = autoScrollActive ? 'Auto-scroll: ON (click to stop)' : 'Auto-scroll thorana';
+            autoScrollBtn.textContent = autoScrollActive ? '⏹' : '↕';
+
+            if (autoScrollActive) {
+                autoScrollDir = 1;
+                autoScrollRAF = requestAnimationFrame(autoScrollStep);
+            } else {
+                cancelAnimationFrame(autoScrollRAF);
+            }
+        }
+
+        autoScrollBtn.addEventListener('click', toggleAutoScroll);
+
+        // Turn off auto-scroll instantly if user interacts manually
+        window.addEventListener('wheel', () => {
+            if (autoScrollActive) toggleAutoScroll();
+        }, { passive: true });
+
+        window.addEventListener('touchmove', () => {
+            if (autoScrollActive) toggleAutoScroll();
+        }, { passive: true });
+
+        /* ── TIMELINE PROGRESS & SEEK BAR ── */
+        (function () {
+            const barWrap = document.getElementById('auto-bar-wrap');
+            const bar = document.getElementById('auto-bar');
+            const music = document.getElementById('bg-music');
+
+            if (!barWrap || !bar || !music) return;
+
+            barWrap.style.cssText +=
+                'cursor:pointer;height:8px;bottom:0;left:0;right:0;position:absolute;' +
+                'background:rgba(58,26,0,.6);';
+            bar.style.transition = 'none';
+
+            let rafId = null;
+
+            function updateBar() {
+                const seg = (typeof SEGMENTS !== 'undefined' && typeof activeIdx !== 'undefined' &&
+                    activeIdx >= 0 && SEGMENTS[activeIdx])
+                    ? SEGMENTS[activeIdx] : null;
+
+                if (seg) {
+                    const dur = seg.end - seg.start;
+                    const elap = Math.max(0, Math.min(music.currentTime - seg.start, dur));
+                    bar.style.transform = `scaleX(${elap / dur})`;
+                } else {
+                    const total = music.duration || 1;
+                    bar.style.transform = `scaleX(${music.currentTime / total})`;
+                }
+
+                if (!music.paused) rafId = requestAnimationFrame(updateBar);
+            }
+
+            music.addEventListener('play', () => { cancelAnimationFrame(rafId); rafId = requestAnimationFrame(updateBar); });
+            music.addEventListener('pause', () => { cancelAnimationFrame(rafId); });
+            music.addEventListener('seeking', updateBar);
+            music.addEventListener('seeked', updateBar);
+
+            function seekFromPointer(e) {
+                const rect = barWrap.getBoundingClientRect();
+                const frac = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+
+                const seg = (typeof SEGMENTS !== 'undefined' && typeof activeIdx !== 'undefined' &&
+                    activeIdx >= 0 && SEGMENTS[activeIdx])
+                    ? SEGMENTS[activeIdx] : null;
+
+                if (seg) {
+                    music.currentTime = seg.start + frac * (seg.end - seg.start);
+                } else {
+                    music.currentTime = frac * (music.duration || 0);
+                }
+                updateBar();
+            }
+
+            let dragging = false;
+
+            barWrap.addEventListener('mousedown', e => {
+                dragging = true;
+                seekFromPointer(e);
+                e.preventDefault();
+            });
+            window.addEventListener('mousemove', e => { if (dragging) seekFromPointer(e); });
+            window.addEventListener('mouseup', () => { dragging = false; });
+
+            barWrap.addEventListener('touchstart', e => {
+                dragging = true;
+                seekFromPointer(e.touches[0]);
+                e.preventDefault();
+            }, { passive: false });
+            window.addEventListener('touchmove', e => { if (dragging) seekFromPointer(e.touches[0]); }, { passive: true });
+            window.addEventListener('touchend', () => { dragging = false; });
+
+            barWrap.addEventListener('mouseenter', () => { barWrap.style.height = '10px'; });
+            barWrap.style.height = '8px';
+            barWrap.addEventListener('mouseleave', () => { if (!dragging) barWrap.style.height = '8px'; });
+
+            window.restartBar = function (i) {
+                cancelAnimationFrame(rafId);
+                bar.style.transition = 'none';
+                bar.style.transform = 'scaleX(0)';
+                if (!music.paused) rafId = requestAnimationFrame(updateBar);
+            };
+        })();
     </script>
 </body>
 
